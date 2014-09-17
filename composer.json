@@ -1,0 +1,26 @@
+{
+    "name": "triggerdesign/hermes",
+    "description": "",
+    "authors": [
+        {
+            "name": "Simon Schneider",
+            "email": "info@triggerdesign.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.1.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/models",
+            "src/facades",
+            "src/config"
+        ],
+        "psr-0": {
+            "Triggerdesign\\Hermes\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
