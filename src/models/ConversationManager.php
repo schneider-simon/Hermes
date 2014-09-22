@@ -16,6 +16,7 @@ class ConversationManager {
     /**
      * @param array $user_ids
      * @param array $arguments
+     * @param bool $forceNew If set to true it will not search for existing 
      * @return Conversation
      */
     public function startConversation(array $user_ids, array $arguments = array(), $forceNew = false){
@@ -46,7 +47,7 @@ class ConversationManager {
 
 
     public function findConversations(array $user_ids, array $arguments = array(), $limit = 1){
-        //TODO: do this using sql      
+        //TODO: Do this using eloquent    
         
     	if(!is_array($user_ids) || count($user_ids) < 2){
     		throw new \Exception('You need at least 2 users for a conversation', 1410783987);

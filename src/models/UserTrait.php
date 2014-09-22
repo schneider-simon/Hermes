@@ -32,7 +32,7 @@ trait UserTrait {
     }
     
     public function unreadConversations(){
-    	//simon: is it possible to do this using Eloquent?
+    	//TODO: Do this using Eloquent
     	$unreadConversations = array();
     	foreach($this->unreadMessages() as $unreadMessage){
     		$unreadConversation = $unreadMessage->conversation;

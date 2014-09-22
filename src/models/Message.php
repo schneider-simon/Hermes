@@ -34,12 +34,9 @@ class Message extends EloquentBase{
     public function messageState(\User $byUser = null){
         $byUser = $this->getUser($byUser);
 
-        foreach($this->messageStates as $messageState){
-            if($messageState->user_id == $byUser->id)
-                return $messageState;
-        }
-        
-        return false;
+        $userStates = $this->messageStates()->where('user_id', '=', $byUser->id)->get()->first();
+          
+        return $userStates;
     }
     
     public function changeState($newStateKey = "read", \User $byUser = null){   	
@@ -58,16 +55,13 @@ class Message extends EloquentBase{
     	}
     }
     
-    public function doRead(\User $byUser = null){
+    public function doRead(\User $user = null){
     	return $this->changeState('read', $user);    	
-    }
-    
-   
+    }   
     
     public function doDelete(\User $byUser = null){
     	return $this->changeState('delete', $user);
     }
-
     
     public function isRead(\User $byUser = null){
     	$messageState = $this->messageState($byUser);
@@ -80,6 +74,7 @@ class Message extends EloquentBase{
     	$messageState = $this->messageState($byUser);
     	
     	$notReadState = MessageState::indexOf('unread');
+
     	return $messageState->state == $notReadState;
     }
     

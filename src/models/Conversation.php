@@ -15,7 +15,7 @@ class Conversation extends EloquentBase {
 
     public function messages()
     {
-        return $this->hasMany('Triggerdesign\Hermes\Models\Message')->orderBy('updated_at', 'desc');
+        return $this->hasMany('Triggerdesign\Hermes\Models\Message')->orderBy('updated_at', 'desc')->with('user');
     }
 
 
@@ -30,6 +30,10 @@ class Conversation extends EloquentBase {
         $user = $this->getUser($user);
 
 
+        if(!$this->canWrite($user)){
+        	return false;
+        }
+        
         $newMessage = new Message();
 
         $newMessage->user_id = $user->id;
@@ -60,17 +64,33 @@ class Conversation extends EloquentBase {
     	$this->touch();
     }
     
+    public function canWrite(\User $user){
+    	$user = $this->getUser($user);
+    	
+    	foreach($this->users as $convUser){
+    		if($convUser->id == $user->id) return true;
+    	}
+    	
+    	return false;
+    	
+    }
+    
     public function latestMessage(){
     	return $this->messages()->first();
     }
     
     public function unreadMessages(){
+    	//TODO: Do this using eloquent
+
+
     	$unreadMessages = array();
-    	foreach($this->messages() as $message){
+    	foreach($this->messages as $message){
     		if($message->isUnread()){
     			$unreadMessages[] = $message;
     		}
     	}
+
+
     	
     	return $unreadMessages;
     }
@@ -86,6 +106,10 @@ class Conversation extends EloquentBase {
 		}
 		
 		return true;
+    }
+
+    public function buildGroups(){
+        return \Triggerdesign\Hermes\Classes\MessageGroup::buildGroups($this);
     }
 
 

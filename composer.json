@@ -15,6 +15,7 @@
         "classmap": [
             "src/migrations",
             "src/models",
+            "src/classes",
             "src/facades",
             "src/config"
         ],
