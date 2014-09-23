@@ -19,7 +19,7 @@ class HermesServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('triggerdesign/hermes');
-
+		
         \App::bind('messaging', function()
         {
             return new \Triggerdesign\Hermes\Models\ConversationManager;

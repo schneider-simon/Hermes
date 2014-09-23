@@ -17,12 +17,15 @@ class CreateMessageStatesTable extends \Triggerdesign\Hermes\BaseMigration {
 			$table->increments('id');
 
 			//Has to be nullable so we dont get an 1452 sql error, when users allready exist
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on($this->usersTable());
+            $table->integer('user_id')->unsigned()->nullable();           
 
-            $table->integer('message_id')->unsigned();
-            $table->foreign('message_id')->references('id')->on($this->tableName('messages'));
+            $table->integer('message_id')->unsigned();           
 
+            if($this->useForeignKeys()){
+            	$table->foreign('user_id')->references('id')->on($this->usersTable());
+            	$table->foreign('message_id')->references('id')->on($this->tableName('messages'));
+            }
+            
             $table->integer('state');
 
 			$table->timestamps();

@@ -11,12 +11,12 @@ trait UserTrait {
 
     public function conversations()
     {
-        return $this->belongsToMany('Conversation', EloquentBase::tableName('conversation_user'))->withTimestamps()->orderBy('updated_at', 'desc');
+        return $this->belongsToMany(EloquentBase::modelPath('Conversation'), EloquentBase::tableName('conversation_user'))->withTimestamps()->orderBy('updated_at', 'desc');
     }
     
 	public function messageStates()
     {
-        return $this->hasMany('Triggerdesign\Hermes\Models\MessageState')->orderBy('updated_at', 'desc');
+        return $this->hasMany(EloquentBase::modelPath('MessageState'))->orderBy('updated_at', 'desc');
     }
     
     public function unreadMessageStates(){
@@ -32,7 +32,7 @@ trait UserTrait {
     }
     
     public function unreadConversations(){
-    	//simon: is it possible to do this using Eloquent?
+    	//TODO: Do this using Eloquent
     	$unreadConversations = array();
     	foreach($this->unreadMessages() as $unreadMessage){
     		$unreadConversation = $unreadMessage->conversation;

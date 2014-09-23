@@ -20,6 +20,12 @@ class BaseMigration extends Migration {
 
         return $usersTableConfig;
     }
+    
+    protected function useForeignKeys(){
+    	$useForeignKeys = Config::get('hermes::useForeignKeys', false); 	
+    	
+    	return $useForeignKeys;
+    }
 
 }
 

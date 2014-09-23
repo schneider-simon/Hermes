@@ -18,10 +18,14 @@ class CreateConversationUserTable extends \Triggerdesign\Hermes\BaseMigration {
 
 			//Has to be nullable so we dont get an 1452 sql error, when users allready exist
             $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on($this->usersTable());
+                       	
 
             $table->integer('conversation_id')->unsigned();
-            $table->foreign('conversation_id')->references('id')->on($this->tableName('conversations'));
+			
+            if($this->useForeignKeys()){
+            	$table->foreign('conversation_id')->references('id')->on($this->tableName('conversations'));
+            	$table->foreign('user_id')->references('id')->on($this->usersTable());
+            }
 
 			$table->timestamps();
 		});

@@ -34,7 +34,7 @@ class MessageState extends EloquentBase {
 
     public function message()
     {
-        return $this->belongsTo('Triggerdesign\Hermes\Models\Message');
+        return $this->belongsTo(EloquentBase::modelPath('Message'));
     }
 
     public function user()

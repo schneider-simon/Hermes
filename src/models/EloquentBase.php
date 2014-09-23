@@ -26,7 +26,13 @@ class EloquentBase extends \Eloquent {
     }
     
     public static function modelPath($classname){
+    	//This function is used so a developer can decide if he wants to extend 
+    	//his own models or if he wants to use the original hermes models only
     	
+    	if(class_exists($classname) )    	
+    		return $classname;
+    	else
+    		return "\\Triggerdesign\\Hermes\\Models\\" . $classname;
     }
 
 
@@ -38,7 +44,7 @@ class EloquentBase extends \Eloquent {
         $this->table = static::tableName($baseTableName);
     }
 
-    protected function getUser($user){
+    protected function getUser($user = null){
         if(!$user)  $user = \Auth::user();
 
         if(!$user){
