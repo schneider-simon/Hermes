@@ -16,8 +16,11 @@ You can have conversations between multiple users to build a messenger with room
 Like you see in the table above, Hermes is able to differ between the different Users when it comes to reading a message.
 
 **For example:**
-There is a conversations between 3 users: User1, User2 and User3
-User1 writes a message and User2 reads it. Then we have three MessageStates for this new message:
+
+There is a conversation between 3 users: *User1, User2 and User3*
+*User1* writes a message and *User2* reads it.
+
+Then we have three MessageStates for this new message:
 * MessageState for User1 is ‘own’
 * MessageState for User2 is ‘read’
 * MessageState for User3 is ‘unread’
