@@ -17,8 +17,10 @@ Like you see in the table above, Hermes is able to differ between the different 
 
 **For example:**
 
-There is a conversation between 3 users: *User1, User2 and User3*
+There is a conversation between 3 users: *User1, User2 and User3*.
+
 *User1* writes a message and *User2* reads it.
+
 
 Then we have three MessageStates for this new message:
 * MessageState for User1 is ‘own’
