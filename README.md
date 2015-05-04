@@ -3,6 +3,26 @@ Hermes
 
 A fully featured messaging package for Laravel.
 
+You can have conversations between multiple users to build a messenger with rooms or just a private 1to1 message system.
+
+## The Idea
+
+* Conversation -> hasMany Users
+* Conversation -> hasMany Messages
+* Message -> hasOne User
+* Message -> hasMany MessageState
+* MessageState -> hasMany User
+
+Like you see in the table above, Hermes is able to differ between the different Users when it comes to reading a message.
+
+**For example:**
+There is a conversations between 3 users: User1, User2 and User3
+User1 writes a message and User2 reads it. Then we have three MessageStates for this new message:
+* MessageState for User1 is ‘own’
+* MessageState for User2 is ‘read’
+* MessageState for User3 is ‘unread’
+
+
 ##Install
 ### Composer.json
 ```Javascript
@@ -40,6 +60,7 @@ Now you have the 4 tables that we need for user conversations.
 
 Start a converstion between user with the ID 1 and the user with the ID 2. If there is allready one it will return the existing conversation.
 ```PHP
+    //This will start a new conversation between user 1 and 2 or find an existing one
     $conversation = Messaging::startConversation([1,2]);
     
     //or try to find one on your own
@@ -80,6 +101,37 @@ You can also have groups of messages like in facebook. Several messages are coll
     @endforeach
     
 ```
+
+## Use the Trait 
+You can use a trait inside your **User model** to access several Hermes functions:
+```PHP
+<?php
+
+use Triggerdesign\Hermes\Models\UserTrait as HermesTrait;
+...
+
+class User extends BaseModel implements ConfideUserInterface
+{
+    use HermesTrait;
+    ...
+```
+
+Now you can use this stuff:
+```PHP
+	//All conversations that this user is a member of
+	$user->conversations(); 
+	
+	//How many messages are unread
+	$user->unreadMessagesCount();
+	$user->hasUnreadMessages();
+	
+	//Get all unread conversations
+	$user->unreadConversations();
+	
+	//Get all unread conversations inside all the unread conversations
+	$user->unreadMessages();
+```
+
 
 ## Configuration
 Publish the configuration files into your app directory:
