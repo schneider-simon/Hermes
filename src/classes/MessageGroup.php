@@ -125,6 +125,7 @@ class MessageGroup{
 
 		}
 
+        if($currentGroup !== null)
         $groups[] = clone $currentGroup;
 		
 		return $groups;
