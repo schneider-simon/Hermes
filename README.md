@@ -7,13 +7,13 @@ You can have conversations between multiple users to build a messenger with room
 
 ## The Idea
 
-* Conversation -> hasMany Users
-* Conversation -> hasMany Messages
-* Message -> hasOne User
-* Message -> hasMany MessageState
-* MessageState -> hasMany User
+* Conversation  -> hasMany Users
+* Conversation  -> hasMany Messages
+* Message       -> hasOne User
+* Message       -> hasMany MessageState
+* MessageState  -> hasMany User
 
-Like you see in the table above, Hermes is able to differ between the different Users when it comes to reading a message.
+Like you see in the table above, Hermes is able to differ between different users when it comes to reading a message.
 
 **For example:**
 
@@ -29,7 +29,7 @@ Then we have three MessageStates for this new message:
 
 
 ##Install
-### Composer.json
+### Step 1: Composer.json
 ```Javascript
     "require": {
         ...
@@ -39,7 +39,7 @@ Then we have three MessageStates for this new message:
 
 Run a **composer update**.
 
-### app.php
+### Step 2: app.php
 ```PHP
 	'providers' => array(
 	    ...
@@ -52,12 +52,25 @@ Run a **composer update**.
    );
 ```
 
-### Migrate tables
+### Step 3: Migrate tables
 ```
 $ php artisan migrate --package="triggerdesign/hermes"
 ```
 Now you have the 4 tables that we need for user conversations.
 
+### Step 4: Use the user trait 
+You should use a trait inside your **User model**:
+```PHP
+<?php
+
+use Triggerdesign\Hermes\Models\UserTrait as HermesTrait;
+...
+
+class User extends BaseModel implements ConfideUserInterface
+{
+    use HermesTrait;
+    ...
+```
 
 ## Usage
 
@@ -107,21 +120,10 @@ You can also have groups of messages like in facebook. Several messages are coll
     
 ```
 
-## Use the Trait 
-You can use a trait inside your **User model** to access several Hermes functions:
-```PHP
-<?php
+### Access the conversations of a user
 
-use Triggerdesign\Hermes\Models\UserTrait as HermesTrait;
-...
+The trait allows you to use these functions:
 
-class User extends BaseModel implements ConfideUserInterface
-{
-    use HermesTrait;
-    ...
-```
-
-Now you can use this stuff:
 ```PHP
 	//All conversations that this user is a member of
 	$user->conversations(); 
