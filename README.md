@@ -102,7 +102,7 @@ Now you have access to these functions and attributes:
     $conversation->doRead(); //call this after a user has read his messages
 ```
 
-You can also have groups of messages like in facebook. Several messages are collected into a group of messages, if they are is not much time in between and if they are all from one sender.
+You can also have groups of messages like in facebook. Several messages are collected into a group of messages, if they is not too much time in between and if they are all from one sender.
 
 ```PHP
     //Build an array of \Triggerdesign\Hermes\Classes\MessageGroup
