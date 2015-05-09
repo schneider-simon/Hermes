@@ -1,7 +1,7 @@
 {
     "name": "triggerdesign/hermes",
     "description": "A fully featured messaging package for Laravel.",
-    "keywords": ["Laravel","Messaging", "Chat", "Mail"],
+    "keywords": ["laravel","messenger", "messaging", "chat", "mail"],
     "authors": [
         {
             "name": "Simon Schneider",
