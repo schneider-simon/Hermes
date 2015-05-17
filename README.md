@@ -30,10 +30,20 @@ Then we have three MessageStates for this new message:
 
 ##Install
 ### Step 1: Composer.json
+
+#### For Laravel 5
 ```Javascript
     "require": {
         ...
-        "triggerdesign/hermes": "dev-master"
+        "triggerdesign/hermes": "2.*"
+        }
+```
+
+#### For Laravel 4
+```Javascript
+    "require": {
+        ...
+        "triggerdesign/hermes": "1.0"
         }
 ```
 
