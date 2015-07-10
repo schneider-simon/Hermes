@@ -24,7 +24,9 @@ class HermesServiceProvider extends ServiceProvider {
         });
 
         $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('hermes.php'),
+            __DIR__.'/../../config/config.php' => config_path('hermes.php'),
+            __DIR__.'/../../migrations/' => database_path('/migrations'),
+
         ]);
 
 
@@ -32,7 +34,8 @@ class HermesServiceProvider extends ServiceProvider {
             return new \MigrationCommand();
         });
 
-        $this->commands(['hermes::command.migration']);
+        //Use the published migration instead of a command (the documented Laravel 5.1 way)
+        //$this->commands(['hermes::command.migration']);
 
 	}
 

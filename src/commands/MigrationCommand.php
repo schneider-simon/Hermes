@@ -15,6 +15,10 @@ class MigrationCommand extends Command{
      */
     protected $description = 'Migrate the necessary package migration files for hermes (messages, conversations, conversation_user, message_states).';
 
+    public function __construct(){
+        $this->app = app();
+    }
+
     /**
      * Run the package migrations
      */

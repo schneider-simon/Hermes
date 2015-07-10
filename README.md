@@ -62,10 +62,13 @@ Run a **composer update**.
    );
 ```
 
-### Step 3: Migrate tables
+### Step 3: Publish migrations and config
+
 ```
-$ php artisan migrate --package="triggerdesign/hermes"
+    php artisan vendor:publish
+    php artisan migrate
 ```
+
 Now you have the 4 tables that we need for user conversations.
 
 ### Step 4: Use the user trait 
