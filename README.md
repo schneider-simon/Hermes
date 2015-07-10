@@ -133,6 +133,7 @@ You can also have groups of messages like in facebook. Several messages are coll
     
 ```
 
+
 ### Access the conversations of a user
 
 The trait allows you to use these functions:
@@ -154,10 +155,7 @@ The trait allows you to use these functions:
 
 
 ## Configuration
-Publish the configuration files into your app directory:
-```
-$php artisan config:publish triggerdesign/hermes
-```
+The configuration files are published into your app directory.
 
 * If you dont use the "users" table for storing your users you can rename it in **hermes.usersTable**
 * Change the tableprefix if you want to: **hermes.tablePrefix**
