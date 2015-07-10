@@ -18,10 +18,16 @@ class HermesServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-        \App::bind('messaging', function()
+        app()->bind('messaging', function()
         {
             return new \Triggerdesign\Hermes\Models\ConversationManager;
         });
+
+        $this->publishes([
+            __DIR__.'/../config/config.php' => config_path('hermes.php'),
+        ]);
+
+        $this->commands('command.entrust.migration');
 
 	}
 
