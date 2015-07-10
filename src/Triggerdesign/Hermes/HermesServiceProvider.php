@@ -27,7 +27,12 @@ class HermesServiceProvider extends ServiceProvider {
             __DIR__.'/../config/config.php' => config_path('hermes.php'),
         ]);
 
-        $this->commands('command.entrust.migration');
+
+        app()->bind('hermes::command.migration', function(){
+            return new \MigrationCommand();
+        });
+
+        $this->commands(['hermes::command.migration']);
 
 	}
 
