@@ -12,6 +12,8 @@ namespace Triggerdesign\Hermes\Models;
 
 use Auth;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Triggerdesign\Hermes\Classes\MessageGroup;
 
 class Conversation extends EloquentBase {
 
@@ -36,7 +38,7 @@ class Conversation extends EloquentBase {
      */
     public function users()
     {
-        return $this->belongsToMany('\User', parent::tableName('conversation_user'))->withTimestamps();
+        return $this->belongsToMany('\App\User', parent::tableName('conversation_user'))->withTimestamps();
     }
 
     /**
@@ -57,18 +59,18 @@ class Conversation extends EloquentBase {
      * Leave the user to null and the currently logged in user will send the message.
      *
      * @param string $content
-     * @param \User $user
+     * @param Model $user
      * @return Message
      * @throws \Exception
      */
-    public function addMessage($content, \User $user = null){
+    public function addMessage($content, Model $user = null){
         $user = $this->getUser($user);
 
 
         if(!$this->canWrite($user)){
-        	return false;
+            return false;
         }
-        
+
         $newMessage = new Message();
 
         $newMessage->user_id = $user->id;
@@ -97,64 +99,64 @@ class Conversation extends EloquentBase {
     /**
      * Add a user to the party.
      *
-     * @param \User $user
+     * @param Model $user
      */
-    public function addUser(\User $user){
-    	$this->users()->attach($user->id);
-    	$this->touch();
+    public function addUser(Model $user){
+        $this->users()->attach($user->id);
+        $this->touch();
     }
 
     /**
-     * @param \User $user
+     * @param Model $user
      * @return bool
      * @throws \Exception
      */
-    public function canWrite(\User $user){
-    	$user = $this->getUser($user);
-    	
-    	foreach($this->users as $convUser){
-    		if($convUser->id == $user->id) return true;
-    	}
-    	
-    	return false;
-    	
+    public function canWrite(Model $user){
+        $user = $this->getUser($user);
+
+        foreach($this->users as $convUser){
+            if($convUser->id == $user->id) return true;
+        }
+
+        return false;
+
     }
-    
+
     public function latestMessage(){
-    	return $this->messages()->first();
+        return $this->messages()->first();
     }
-    
+
     public function unreadMessages(){
-    	//TODO: Do this using eloquent
+        //TODO: Do this using eloquent
 
 
-    	$unreadMessages = array();
-    	foreach($this->messages as $message){
-    		if($message->isUnread()){
-    			$unreadMessages[] = $message;
-    		}
-    	}
+        $unreadMessages = array();
+        foreach($this->messages as $message){
+            if($message->isUnread()){
+                $unreadMessages[] = $message;
+            }
+        }
 
 
-    	
-    	return $unreadMessages;
+
+        return $unreadMessages;
     }
-    
+
     public function isUnread(){
-    	return count($this->unreadMessages()) > 0;
+        return count($this->unreadMessages()) > 0;
     }
-    
-    
+
+
     public function doRead(){
-		foreach($this->unreadMessages() as $unreadMessage){
-			$unreadMessage->doRead();
-		}
-		
-		return true;
+        foreach($this->unreadMessages() as $unreadMessage){
+            $unreadMessage->doRead();
+        }
+
+        return true;
     }
 
     public function buildGroups(){
-        return \Triggerdesign\Hermes\Classes\MessageGroup::buildGroups($this);
+        return MessageGroup::buildGroups($this);
     }
 
 

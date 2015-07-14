@@ -56,7 +56,7 @@ class ConversationManager {
     	//Get all conversations of the first user and check if 
     	//the other users are in these conversations too.
     	
-        $firstUser = \User::find($user_ids[0]);
+        $firstUser = \App\User::find($user_ids[0]);
         $conversations = $firstUser->conversations()->with('users')->get();   
                
         $filteredConversations = array();
