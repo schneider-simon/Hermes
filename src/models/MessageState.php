@@ -39,7 +39,8 @@ class MessageState extends EloquentBase {
 
     public function user()
     {
-        return $this->belongsTo('User');
+        $userClass = EloquentBase::userClass();
+        return $this->belongsTo($userClass);
     }
 
 

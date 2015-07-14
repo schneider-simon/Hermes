@@ -55,8 +55,9 @@ class ConversationManager {
     	
     	//Get all conversations of the first user and check if 
     	//the other users are in these conversations too.
-    	
-        $firstUser = \App\User::find($user_ids[0]);
+    	$userClass = EloquentBase::userClass();
+
+        $firstUser = $userClass::find($user_ids[0]);
         $conversations = $firstUser->conversations()->with('users')->get();   
                
         $filteredConversations = array();
@@ -72,7 +73,7 @@ class ConversationManager {
                     $argumentsFitting = false;
                     break;
                 }
-            }            
+            }
             
             
             

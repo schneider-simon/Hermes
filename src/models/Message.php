@@ -20,7 +20,9 @@ class Message extends EloquentBase{
 
     public function user()
     {
-        return $this->belongsTo('\App\User');
+        $userClass = EloquentBase::userClass();
+
+        return $this->belongsTo($userClass);
     }
 
     public function conversation()
@@ -63,7 +65,7 @@ class Message extends EloquentBase{
     }
 
     public function doDelete(Model $byUser = null){
-        return $this->changeState('delete', $user);
+        return $this->changeState('delete', $byUser);
     }
 
     public function isRead(Model $byUser = null){

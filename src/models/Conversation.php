@@ -38,7 +38,9 @@ class Conversation extends EloquentBase {
      */
     public function users()
     {
-        return $this->belongsToMany('\App\User', parent::tableName('conversation_user'))->withTimestamps();
+        $userClass = EloquentBase::userClass();
+
+        return $this->belongsToMany($userClass, parent::tableName('conversation_user'))->withTimestamps();
     }
 
     /**
