@@ -15,15 +15,15 @@ class EloquentBase extends \Eloquent {
 
     public static function userClass(){
 
-        return \Config::get('hermes::userClass', '\App\User');
+        return \Config::get('hermes.userClass', '\App\User');
     }
 
     public static function tableName($name){
     	if($name == 'users'){
-    		return \Config::get('hermes::usersTable', 'users');
+    		return \Config::get('hermes.usersTable', 'users');
     	}    	
     	
-        $prefix = \Config::get('hermes::tablePrefix', '');
+        $prefix = \Config::get('hermes.tablePrefix', '');
 
       
         
